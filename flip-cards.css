@@ -1,0 +1,120 @@
+.card.flip-card {
+  --fc-radius: 24px;
+  --fc-bg: #ffffff;
+  --fc-ink: #383b38;
+  --fc-shadow: 0, 0, 0;
+  --fc-shadow-o: 0.28;
+  --fc-glare: 0.22;
+  position: relative;
+  overflow: visible;
+  padding: 0;
+  border: 0;
+  border-radius: var(--fc-radius);
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: pan-y;
+  perspective: 1100px;
+}
+
+.flip-card__shadow {
+  position: absolute;
+  z-index: -1;
+  inset: 12% 9% -5%;
+  border-radius: var(--fc-radius);
+  background: rgba(var(--fc-shadow), var(--fc-shadow-o));
+  filter: blur(22px);
+  opacity: var(--fc-facing, 1);
+  transform: scaleX(var(--fc-facing, 1));
+  transition: opacity 180ms ease;
+  pointer-events: none;
+}
+
+.flip-card__rotor {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--fc-radius);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.flip-card__face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid rgba(56, 59, 56, 0.05);
+  border-radius: var(--fc-radius);
+  background: var(--fc-bg);
+  color: var(--fc-ink);
+  box-shadow: 0 12px 30px rgba(36, 39, 35, 0.09);
+  transition: box-shadow 0.3s ease;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card__face--front {
+  padding: 16px 16px 80px;
+}
+
+.flip-card__glare {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle farthest-side at var(--fc-gx, 50%) var(--fc-gy, 50%),
+    rgba(255, 255, 255, var(--fc-glare)) 0%,
+    rgba(255, 255, 255, 0.15) 18%,
+    rgba(255, 255, 255, 0.07) 38%,
+    rgba(255, 255, 255, 0) 76%
+  );
+  opacity: var(--fc-sheen, 0);
+  transition: opacity 180ms ease;
+  pointer-events: none;
+}
+
+.card.flip-card:focus-visible {
+  outline: 3px solid var(--ink-strong, #383b38);
+  outline-offset: 6px;
+}
+
+.card.flip-card:hover .card-photo,
+.card.flip-card:focus-visible .card-photo,
+.card.flip-card[data-pressed] .card-photo {
+  transform: scale(1.08);
+}
+
+.card.flip-card .card-photo {
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+.card.flip-card:hover .flip-card__face,
+.card.flip-card:focus-visible .flip-card__face,
+.card.flip-card[data-pressed] .flip-card__face {
+  box-shadow: 0 22px 48px rgba(36, 39, 35, 0.22);
+}
+
+.card--free.flip-card .card-photo {
+  transform: scale(1.27);
+}
+
+.card--free.flip-card:hover .card-photo,
+.card--free.flip-card:focus-visible .card-photo,
+.card--free.flip-card[data-pressed] .card-photo {
+  transform: scale(1.3716);
+}
+
+@media (max-width: 640px) {
+  .card.flip-card { --fc-radius: 20px; }
+  .flip-card__face--front { padding: 16px 16px 80px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-card__rotor { transform: none !important; }
+  .flip-card__glare { display: none; }
+}

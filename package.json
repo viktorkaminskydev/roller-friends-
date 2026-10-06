@@ -1,0 +1,15 @@
+{
+  "name": "roller-friends-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static website for Roller Friends roller school in Uzhhorod.",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-site.mjs",
+    "build": "npm run validate",
+    "dev": "python3 -m http.server 4173 --directory dist"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
