@@ -1,0 +1,14 @@
+HeroSectionrollerfriends.mov
+HeroSectionrollerfriends_optim.mp4
+Timeline 1.mov
+Timeline 1_optim.mp4
+.DS_Store
+**/.DS_Store
+.vercel/
+node_modules/
+npm-debug.log*
+dist/assets/safe.webp
+.env
+.env.*
+!.env.example
+.vscode/
