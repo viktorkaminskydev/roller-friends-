@@ -1,0 +1,50 @@
+.brand-mark,
+.brand-logo,
+.home-link,
+.detail-logo,
+.page-header h1,
+.school-name,
+main > h1 {
+  transform-origin: center;
+  will-change: transform;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
+}
+
+.brand-mark:hover,
+.brand-mark:focus-visible,
+.brand-logo:hover,
+.brand-logo:focus-visible,
+.detail-logo:hover,
+.detail-logo:focus-visible {
+  transform: scale(1.055);
+  filter: drop-shadow(0 8px 16px rgba(44, 47, 43, 0.14));
+}
+
+.home-link:hover,
+.home-link:focus-visible {
+  transform: translateY(-3px) scale(1.055);
+  filter: drop-shadow(0 8px 16px rgba(44, 47, 43, 0.14));
+}
+
+.page-header h1:hover,
+.page-header h1:focus-visible,
+.school-name:hover,
+.school-name:focus-visible,
+main > h1:hover,
+main > h1:focus-visible {
+  transform: scale(1.025);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-mark,
+  .brand-logo,
+  .home-link,
+  .detail-logo,
+  .page-header h1,
+  .school-name,
+  main > h1 {
+    transition-duration: 0.01ms;
+  }
+}

@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Roller Friends — авторська школа ролер-спорту. Оберіть формат тренувань, абонемент або познайомтеся з командою."
+    />
+    <meta name="theme-color" content="#ededeb" />
+    <title>Roller Friends — ролер-школа</title>
+    <link rel="icon" type="image/png" sizes="128x128" href="favicon.png?v=2" />
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #626661;
+        --ink-strong: #383b38;
+        --paper: #ededeb;
+        --line: rgba(69, 72, 68, 0.18);
+        --radius: 24px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--paper);
+        font-family:
+          Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        color: var(--ink);
+      }
+
+      body {
+        min-height: 100svh;
+        margin: 0;
+        background:
+          radial-gradient(circle at 8% 2%, rgba(255, 255, 255, 0.92), transparent 29%),
+          linear-gradient(145deg, #f4f4f2 0%, #e8e8e5 100%);
+      }
+
+      .page-shell {
+        width: min(1120px, calc(100% - 160px));
+        min-height: 100svh;
+        margin: 0 auto;
+        padding: clamp(18px, 2.2vw, 32px) 0;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: clamp(18px, 2.2vh, 28px);
+      }
+
+      .brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: clamp(8px, 1.2vh, 12px);
+        text-align: center;
+      }
+
+      .brand-mark {
+        width: clamp(72px, 6.8vw, 88px);
+        aspect-ratio: 1;
+        display: block;
+        object-fit: cover;
+      }
+
+      .brand-logo {
+        width: clamp(290px, 31vw, 420px);
+        max-width: 92%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        object-fit: contain;
+      }
+
+      .sr-only {
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        clip-path: inset(50%);
+      }
+
+      .menu-grid {
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        align-self: start;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-rows: repeat(2, auto);
+        gap: clamp(12px, 1.35vw, 20px);
+      }
+
+      .card {
+        aspect-ratio: 4 / 5;
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.54);
+        border-radius: var(--radius);
+        background: #7e817d;
+        box-shadow: 0 12px 30px rgba(36, 39, 35, 0.09);
+        isolation: isolate;
+        color: white;
+        text-decoration: none;
+        transform: translateZ(0);
+      }
+
+      .card > .card-photo {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        filter: saturate(0.84) contrast(1.03) brightness(0.98);
+        transition: transform 560ms cubic-bezier(0.2, 0.75, 0.25, 1);
+      }
+
+      .card > .team-photo {
+        object-fit: contain;
+        padding: 3px;
+        background: #e5e4e1;
+      }
+
+      .card > .booking-photo {
+        object-position: center 54%;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background:
+          linear-gradient(180deg, rgba(12, 14, 12, 0.02) 20%, rgba(12, 14, 12, 0.72) 100%),
+          linear-gradient(120deg, rgba(98, 102, 97, 0.15), transparent 45%);
+        transition: background-color 350ms ease;
+      }
+
+      .card-label {
+        position: absolute;
+        z-index: 2;
+        left: 20px;
+        right: 18px;
+        bottom: 18px;
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 14px;
+        font-size: clamp(0.98rem, 1.15vw, 1.2rem);
+        font-weight: 620;
+        line-height: 1.15;
+        text-shadow: 0 1px 12px rgba(0, 0, 0, 0.28);
+      }
+
+      .card-mark {
+        width: 40px;
+        height: 34px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.28));
+        transform-origin: 50% 55%;
+        transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .card-mark img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+      }
+
+      .card:hover > .card-photo,
+      .card:focus-visible > .card-photo {
+        transform: scale(1.065);
+      }
+
+      .card:hover .card-mark,
+      .card:focus-visible .card-mark {
+        transform: rotate(-28deg) translateY(-2px) scale(1.1);
+      }
+
+      /* New Figma card style. Applied to one card while the set is rebuilt. */
+      .card--figma {
+        aspect-ratio: 2 / 3;
+        align-self: start;
+        padding: 16px 16px 80px;
+        border-color: rgba(56, 59, 56, 0.05);
+        background: #ffffff;
+        color: var(--ink-strong);
+      }
+
+      .card--figma::before {
+        display: none;
+      }
+
+      .card--figma .card-media {
+        width: 100%;
+        height: 100%;
+        display: block;
+        overflow: hidden;
+        border-radius: 16px;
+        background: #eef6f2;
+      }
+
+      .card--figma .card-photo {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 560ms cubic-bezier(0.2, 0.75, 0.25, 1);
+      }
+
+      .card--group .card-photo {
+        object-position: 43% center;
+      }
+
+      .card--free .card-photo {
+        transform: scale(1.27);
+      }
+
+      .card--team .card-photo {
+        object-fit: cover;
+        transform: none;
+        clip-path: none;
+      }
+
+      .card--team .card-media {
+        background: #ffffff;
+      }
+
+      .card--figma .card-label {
+        left: 16px;
+        right: 16px;
+        bottom: 0;
+        height: 80px;
+        display: grid;
+        place-items: center;
+        justify-content: center;
+        align-content: center;
+        color: var(--ink-strong);
+        font-weight: 620;
+        text-align: center;
+        text-transform: uppercase;
+        text-shadow: none;
+      }
+
+      .card--figma .card-label > span {
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+
+      .card--figma:hover .card-photo,
+      .card--figma:focus-visible .card-photo {
+        transform: scale(1.035);
+      }
+
+      .card--free:hover .card-photo,
+      .card--free:focus-visible .card-photo {
+        transform: scale(1.32);
+      }
+
+      .card--team:hover .card-photo,
+      .card--team:focus-visible .card-photo {
+        transform: scale(1.035);
+      }
+
+      .card:focus-visible {
+        outline: 3px solid var(--ink-strong);
+        outline-offset: 4px;
+      }
+
+      .credit {
+        margin: 0;
+        text-align: center;
+        font-size: 0.75rem;
+        color: #7d807b;
+      }
+
+      .credit a {
+        color: inherit;
+        text-underline-offset: 3px;
+      }
+
+      @media (min-width: 1025px) {
+        .page-shell { min-height: 100svh; }
+      }
+
+      @media (min-width: 1025px) and (max-height: 800px) {
+        .page-shell {
+          width: min(900px, calc(100% - 160px));
+          padding: 12px 0;
+          gap: 12px;
+        }
+
+        .brand { gap: 6px; }
+        .brand-mark { width: 56px; }
+        .brand-logo { width: 280px; }
+        .menu-grid { gap: 12px; }
+        .card-label { font-size: 0.94rem; }
+      }
+
+      @media (max-width: 1024px) {
+        .page-shell {
+          width: calc(100% - 64px);
+        }
+
+        .menu-grid {
+          height: auto;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-template-rows: none;
+        }
+
+        .card { aspect-ratio: 4 / 5; }
+      }
+
+      @media (max-width: 640px) {
+        .page-shell {
+          width: calc(100% - 32px);
+          padding: 18px 0 20px;
+          gap: 18px;
+        }
+
+        .menu-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .card {
+          aspect-ratio: 4 / 5;
+          border-radius: 20px;
+        }
+
+        .card-label {
+          left: 18px;
+          bottom: 16px;
+          font-size: 1rem;
+        }
+
+        .card-mark { width: 36px; height: 31px; }
+
+        .brand { gap: 7px; }
+        .brand-mark { width: 68px; }
+        .brand-logo { width: min(300px, 82vw); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="typography.css" />
+    <link rel="stylesheet" href="flip-cards.css" />
+    <link rel="stylesheet" href="brand-hover.css" />
+    <link rel="stylesheet" href="home-modern.css" />
+    <link rel="stylesheet" href="back-to-top.css" />
+    <script src="flip-cards.js" defer></script>
+  </head>
+  <body id="top" class="home-page">
+    <div class="page-shell">
+      <header class="brand" aria-label="Roller Friends">
+        <video class="home-hero-background" autoplay muted loop playsinline preload="metadata" poster="assets/group-attendance-outdoor.webp" aria-hidden="true">
+          <source src="assets/hero-training-video.mp4" type="video/mp4" />
+        </video>
+        <a class="brand-lockup" href="index.html" aria-label="Roller Friends — головна сторінка">
+          <img class="brand-mark" src="assets/R_F_8.jpg?v=1" alt="" aria-hidden="true" />
+          <img class="brand-logo" src="assets/R_F_logo_gray4.png?v=3" alt="Roller Friends — Roller School" />
+        </a>
+        <div class="home-hero-copy">
+          <p class="home-kicker">Авторська школа ролер-спорту · Ужгород</p>
+          <h1><span class="hero-title-line">Катання, що</span><span class="hero-title-line">перетворюється</span><span class="hero-title-line">на впевненість</span></h1>
+          <p class="home-lead">Навчаємо дітей і дорослих безпечно кататися, розвивати техніку та рухатися до власних спортивних цілей.</p>
+          <div class="home-actions"><a href="price-booking.html#booking">Записатися на тренування</a><a href="#directions">Обрати формат</a></div>
+        </div>
+      </header>
+
+      <main class="home-content">
+        <section class="home-proof" aria-label="Переваги Roller Friends">
+          <p><strong>Свій темп</strong><span>індивідуально або в групі</span></p>
+          <p><strong>Безпечний старт</strong><span>захист, підтримка й методика</span></p>
+          <p><strong>Розвиток</strong><span>від перших кроків до складних елементів</span></p>
+        </section>
+
+        <section class="home-services" id="directions" aria-labelledby="directions-title">
+          <div class="home-section-head">
+            <p class="home-section-kicker"><span>Оберіть свій напрям</span></p>
+            <h2 id="directions-title"><span>Усе для ролер-спорту</span><span>в одному місці</span></h2>
+            <p class="home-section-lead">Від першого тренування до власних спортивних цілей — знайдіть формат, який підходить саме вам.</p>
+          </div>
+          <div class="menu-grid" aria-label="Розділи школи">
+        <a class="card card--figma card--individual" href="individual.html">
+          <span class="card-media">
+            <img class="card-photo" src="assets/Indiv.webp" alt="Індивідуальне тренування дитини на роликах" />
+          </span>
+          <span class="card-label"><span>ІНДИВІДУАЛЬНІ<br />ТРЕНУВАННЯ</span></span>
+        </a>
+        <a class="card card--figma card--group" href="group.html">
+          <span class="card-media">
+            <img class="card-photo" src="assets/cards/group-illustration.webp" alt="Тренер із групою учнів Roller Friends" />
+          </span>
+          <span class="card-label"><span>ГРУПОВІ<br />ТРЕНУВАННЯ</span></span>
+        </a>
+        <a class="card card--figma card--free" href="free-skate.html">
+          <span class="card-media">
+            <img class="card-photo" src="assets/rollerblading.webp" alt="Ролери у захисному спорядженні" />
+          </span>
+          <span class="card-label"><span>ВІЛЬНЕ<br />КАТАННЯ</span></span>
+        </a>
+        <a class="card card--figma" href="price-booking.html">
+          <span class="card-media">
+            <img class="card-photo" src="assets/price-and-booking.webp" alt="Онлайн-запис на тренування Roller Friends у календарі" />
+          </span>
+          <span class="card-label"><span>ПРАЙС ТА<br />ЗАПИС</span></span>
+        </a>
+        <a class="card card--figma" href="rules.html">
+          <span class="card-media">
+            <img class="card-photo" src="assets/rules-illustration-v2.webp" alt="Ілюстрація правил безпечного катання на роликах" />
+          </span>
+          <span class="card-label"><span>ПРАВИЛА</span></span>
+        </a>
+        <a class="card card--figma" href="passes.html">
+          <span class="card-media">
+            <img class="card-photo" src="assets/Abonement.webp" alt="Абонементи та захисне спорядження Roller Friends" />
+          </span>
+          <span class="card-label"><span>АБОНЕМЕНТИ</span></span>
+        </a>
+        <a class="card card--figma" href="rental.html">
+          <span class="card-media">
+            <img class="card-photo" src="assets/Rental_and_sale.webp" alt="Адміністраторка в зоні прокату та продажу роликів Roller Friends" />
+          </span>
+          <span class="card-label"><span>ПРОКАТ ТА<br />ПРОДАЖ</span></span>
+        </a>
+        <a class="card card--figma card--team" href="team.html">
+          <span class="card-media">
+            <img class="card-photo" src="assets/Team1.webp" alt="Команда Roller Friends на роликах" />
+          </span>
+          <span class="card-label"><span>КОМАНДА</span></span>
+        </a>
+          </div>
+        </section>
+
+        <section class="home-cta" aria-labelledby="home-cta-title">
+          <div><p>Перший крок</p><h2 id="home-cta-title">Допоможемо обрати формат і зручний час</h2></div>
+          <a href="price-booking.html#booking">Перейти до запису</a>
+        </section>
+      </main>
+    </div>
+    <a class="back-to-top" href="#top" aria-label="Повернутися нагору">↑</a>
+  </body>
+</html>
