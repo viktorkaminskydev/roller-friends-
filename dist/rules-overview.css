@@ -1,0 +1,14 @@
+/* The overview leads with the quick guide and keeps the contents within reach. */
+.rules-overview .rules-hero { min-height: auto; }
+.rules-overview .rules-hero__content { min-height: clamp(280px, 40vw, 420px); }
+.rules-overview .rules-toc { max-height: calc(100vh - 48px); overflow: auto; }
+.rules-overview .rules-toc__services { margin-top: 20px; }
+.rules-overview .rules-layout { margin-top: clamp(36px, 6vw, 72px); }
+.rules-overview .toc-mobile { margin-bottom: 14px; }
+.rules-overview .toc-mobile + .rule-group { margin-top: 32px; }
+@media (max-width: 720px) {
+  .rules-overview .rules-hero__content { min-height: 0; }
+  .rules-overview .rules-hero__copy { padding: 24px 2px 16px; }
+  .rules-overview .rules-hero h1 { font-size: clamp(2.15rem, 10vw, 3.5rem) !important; }
+  .rules-overview .quick-guide { margin-top: 14px; }
+}
